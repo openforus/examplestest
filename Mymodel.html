@@ -54,11 +54,11 @@ function initialize()
 	camera = new THREE.Camera();
 	scene.add(camera);
 
-	controls = new THREE.TrackballControls( camera );
+	//controls = new THREE.TrackballControls( camera );
 
 	manager = new THREE.LoadingManager();
 	manager.onProgress = function ( item, loaded, total ) {
-		//console.log( item, loaded, total );
+		console.log( item, loaded, total );
 		// totalload=total;
 		// var percentComplete =  loaded / total * 100;
 	};
@@ -228,8 +228,8 @@ function LoadData(path)
 			//console.log("@@controls.maxDistance", controls.maxDistance);
 			//console.log("@@tempValue", tempValue);
 			var scale= 150/tempValue;
-			controls.minDistance=(dy*0.8>tempValue?dy*0.8:tempValue)*scale;
-			controls.maxDistance=controls.minDistance*3 ;
+			//controls.minDistance=(dy*0.8>tempValue?dy*0.8:tempValue)*scale;
+			//controls.maxDistance=controls.minDistance*3 ;
 
 			gltfobject.position.copy(poivector);
 
@@ -241,18 +241,18 @@ function LoadData(path)
 			scene.add( markerRoot1 );
 
 
-			controls.target.copy(poivector);
-			controls.reset();
+			//controls.target.copy(poivector);
+			//controls.reset();
 			//camera.position.z = 1000;
 			//camera.position.y =   0;
-			controls.update();
+			//controls.update();
 			//controls.enabled=false;
-			controls.enabled=true;
+			//controls.enabled=true;
 			 
 		 
 			
 
-			onResize();
+			//onResize();
 
 		}, onProgress, onError );
 
@@ -284,7 +284,7 @@ function LoadData(path)
 
 function update()
 {
-	controls.update();
+	//controls.update();
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
