@@ -235,7 +235,7 @@ function LoadData(path)
 
 			gltfobject.name="mymodel"
 			console.log( 'scale:'+scale );
-			gltfobject.scale.multiplyScalar(scale*0.01);//约束比例
+			gltfobject.scale.multiplyScalar(scale*0.001);//约束比例
 
 			markerRoot1.add(gltfobject);
 			scene.add( markerRoot1 );
