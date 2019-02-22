@@ -139,12 +139,16 @@ function initialize()
 	mesh1.rotation.x = -Math.PI/2;
 	markerRoot1.add( mesh1 );
 	
-	function onProgress(xhr) {var percentComplete =  xhr.loaded / xhr.total * 100;
-		console.log( Math.round(percentComplete, 2)    + '% loaded' );  }
+	function onProgress(xhr) {
+		if ( xhr.lengthComputable ) {
+		var percentComplete =  xhr.loaded / xhr.total * 100;
+		console.log( Math.round(percentComplete, 2)    + '% loaded' );  
+		}
+	}
 	function onError(xhr) { 
 		// if(xhr.currentTarget.status==404)
 		// {}
-		console.log(xhr );
+		console.log(xhr.currentTarget.status  );
 		console.log( 'An error happened' );
 
 }
