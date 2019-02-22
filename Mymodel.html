@@ -66,13 +66,13 @@ function initialize()
 	};
 	renderer = new THREE.WebGLRenderer({ 
 		precision:"highp", 
-		logarithmicDepthBuffer:true,
+		//logarithmicDepthBuffer:true,
 		antialias : true,
 		alpha: true
 	});
-	renderer.gammaInput = true;
-	renderer.gammaOutput = true;
-	renderer.autoClear = false;
+	//renderer.gammaInput = true;
+	//renderer.gammaOutput = true;
+	//renderer.autoClear = false;
 	
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
 	renderer.setSize( 640, 480 );
