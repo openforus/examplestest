@@ -297,7 +297,7 @@ function LoadData(path)
 function update()
 {
 	//controls.update();
-	if ( markerRoot1.visible )
+	if ( markerRoot1.visible  &&  gltfobject!=undefined)
 	{
 		  gltfobject.rotation.y += 0.01;
 	}	
