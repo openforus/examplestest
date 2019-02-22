@@ -50,7 +50,11 @@ function initialize()
 
 	let ambientLight = new THREE.AmbientLight( 0xcccccc, 1.0 );
 	scene.add( ambientLight );
-				
+	let directionalLight = new THREE.DirectionalLight( 0x777777,1);
+	directionalLight.position.set(50, 100, 100).normalize();
+	scene.add( directionalLight );
+	
+	
 	camera = new THREE.Camera();
 	scene.add(camera);
 
@@ -130,14 +134,14 @@ function initialize()
 		type: 'pattern', patternUrl: "data/E1225.patt",
 	})
 
-	let geometry1 = new THREE.PlaneBufferGeometry(1,1, 4,4);
-	let Cubegeometry	= new THREE.CubeGeometry(1,1,1);
-	let loader = new THREE.TextureLoader();
-	// let texture = loader.load( 'images/earth.jpg', render );
-	let material1 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.5 } );
-	mesh1 = new THREE.Mesh( Cubegeometry, material1 );
-	mesh1.rotation.x = -Math.PI/2;
-	markerRoot1.add( mesh1 );
+// 	let geometry1 = new THREE.PlaneBufferGeometry(1,1, 4,4);
+// 	let Cubegeometry	= new THREE.CubeGeometry(1,1,1);
+// 	let loader = new THREE.TextureLoader();
+// 	// let texture = loader.load( 'images/earth.jpg', render );
+// 	let material1 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.5 } );
+// 	mesh1 = new THREE.Mesh( Cubegeometry, material1 );
+// 	mesh1.rotation.x = -Math.PI/2;
+// 	markerRoot1.add( mesh1 );
 	
 	function onProgress(xhr) {
 		console.log( xhr.total ); 
@@ -152,7 +156,7 @@ function initialize()
 		console.log(xhr.currentTarget.status  );
 		console.log( 'An error happened' );
 
-}
+	}
 	
 
 function LoadData(path)
@@ -234,9 +238,9 @@ function LoadData(path)
 			gltfobject.position.copy(poivector);
 
 			gltfobject.name="mymodel"
-			console.log( 'scale1:'+gltfobject.scale.x );
+			//console.log( 'scale1:'+gltfobject.scale.x );
 			gltfobject.scale.multiplyScalar(0.01);//约束比例
-			console.log( 'scale2:'+gltfobject.scale.x );
+			//console.log( 'scale2:'+gltfobject.scale.x );
 			markerRoot1.add(gltfobject);
 			scene.add( markerRoot1 );
 
