@@ -48,7 +48,7 @@ function initialize()
 {
 	scene = new THREE.Scene();
 
-	let ambientLight = new THREE.AmbientLight( 0xcccccc, 1.0 );
+	let ambientLight = new THREE.AmbientLight( 0xffffff, 1.0 );
 	scene.add( ambientLight );
 	let directionalLight = new THREE.DirectionalLight( 0x777777,1);
 	directionalLight.position.set(50, 100, 100).normalize();
