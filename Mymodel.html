@@ -3,7 +3,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<title>Hello, world!</title>
 	<!-- include three.js library -->
-	<script src='js/three.js'></script>
+	<script src='js/three.min96.js'></script>
 	<script src='js/OBJLoader.js'></script>
 	<script src='js/MTLLoader.js'></script>
 	<!-- include jsartookit -->
@@ -14,6 +14,11 @@
 	<script src="threex/threex-artoolkitcontext.js"></script>
 	<script src="threex/threex-arbasecontrols.js"></script>
 	<script src="threex/threex-armarkercontrols.js"></script>
+	
+
+	<script src="js/DRACOLoader.js"></script>
+	<script src="js/GLTFLoadernew.js"></script>
+	<script src="js/TrackballControls.js"></script>
 </head>
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
@@ -32,6 +37,9 @@ var arToolkitSource, arToolkitContext;
 var markerRoot1;
 
 var mesh1;
+var manager;
+var controls;
+var poivector = new THREE.Vector3(0,0,0);
 
 initialize();
 animate();
@@ -46,6 +54,14 @@ function initialize()
 	camera = new THREE.Camera();
 	scene.add(camera);
 
+	controls = new THREE.TrackballControls( camera );
+
+	manager = new THREE.LoadingManager();
+	manager.onProgress = function ( item, loaded, total ) {
+		//console.log( item, loaded, total );
+		// totalload=total;
+		// var percentComplete =  loaded / total * 100;
+	};
 	renderer = new THREE.WebGLRenderer({
 		antialias : true,
 		alpha: true
@@ -108,7 +124,7 @@ function initialize()
 	////////////////////////////////////////////////////////////
 
 	// build markerControls
-		markerRoot1 = new THREE.Group();
+	markerRoot1 = new THREE.Group();
 	scene.add(markerRoot1);
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
 		type: 'pattern', patternUrl: "data/E1225.patt",
@@ -123,9 +139,121 @@ function initialize()
 	mesh1.rotation.x = -Math.PI/2;
 	markerRoot1.add( mesh1 );
 	
-	// function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
-	// function onError(xhr) { console.log( 'An error happened' ); }
+	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
+	function onError(xhr) { 
+		// if(xhr.currentTarget.status==404)
+		// {}
+		console.log(xhr );
+		console.log( 'An error happened' );
+
+}
 	
+
+function LoadData(path)
+	{
+		
+			var url ="./models/"+path+".glb";// .glb";
+
+			loader = new THREE.GLTFLoader(manager);
+			THREE.DRACOLoader.setDecoderPath( 'js/dracogltf/' );
+			loader.setDRACOLoader( new THREE.DRACOLoader(manager) );
+			loader.load( url, function(data) {
+
+			 
+			var spot1 = null;
+			var gltfobject = data.scene;
+ 
+
+			var Xmax=-9999999999,Ymax=-9999999999,Zmax=-9999999999;
+			var Xmin= 9999999999,Ymin= 9999999999,Zmin= 9999999999;
+   			
+			gltfobject.traverse( function ( node ) {
+				// console.log(node)
+				if ( node.isMesh ){
+
+					node.geometry.computeBoundingBox();
+					if( node.geometry.boundingBox.max.x >Xmax)  
+					{
+						Xmax=node.geometry.boundingBox.max.x;
+					}
+					
+					if(node.geometry.boundingBox.max.y>Ymax)
+					{
+						Ymax=node.geometry.boundingBox.max.y;
+					}
+
+					if( node.geometry.boundingBox.max.z>Zmax)
+					{
+						Zmax=node.geometry.boundingBox.max.z;
+					}
+					
+					if(node.geometry.boundingBox.min.x<Xmin)
+					{
+						Xmin=node.geometry.boundingBox.min.x;
+					}
+					
+					if(node.geometry.boundingBox.min.y<Ymin)
+					{
+						Ymin=node.geometry.boundingBox.min.y;
+					}
+					
+					if(node.geometry.boundingBox.min.z<Zmin)
+					{
+						Zmin=node.geometry.boundingBox.min.z;
+					}
+					
+					// console.log(node)
+					// hotpoints.push(node);
+				// node.castShadow = true;
+				  node.material.side=THREE.DoubleSide;
+				  node.material.map.antialias = 8;
+				  node.material.map.needsUpdate = true
+				  node.material.map.anisotropy= 8;
+
+				}
+
+			} );
+
+			var dx =Xmax-Xmin;
+			var dy =Ymax-Ymin;
+			var dz =Zmax-Zmin;
+
+			var tempValue=   dx>dz?dx*0.8:dz*0.8;
+			//console.log("@@controls.maxDistance", controls.maxDistance);
+			//console.log("@@tempValue", tempValue);
+			var scale= 150/tempValue;
+			controls.minDistance=(dy*0.8>tempValue?dy*0.8:tempValue)*scale;
+			controls.maxDistance=controls.minDistance*3 ;
+
+			gltfobject.position.copy(poivector);
+
+			gltfobject.name="mymodel"
+
+			gltfobject.scale.multiplyScalar(150/tempValue);//约束比例
+
+			markerRoot1.add(gltfobject);
+			scene.add( markerRoot1 );
+
+
+			controls.target.copy(poivector);
+			controls.reset();
+			//camera.position.z = 1000;
+			//camera.position.y =   0;
+			controls.update();
+			//controls.enabled=false;
+			controls.enabled=true;
+			 
+		 
+			
+
+			onResize();
+
+		}, onProgress, onError );
+
+	}
+
+	LoadData("E1225_ZS");
+
 	// new THREE.MTLLoader()
 	// 	.setPath( 'models/' )
 	// 	.load( 'fish-2.mtl', function ( materials ) {
@@ -141,11 +269,16 @@ function initialize()
 	// 				markerRoot1.add(mesh0);
 	// 			}, onProgress, onError );
 	// 	});
+
+
 }
+
+
 
 
 function update()
 {
+	controls.update();
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
