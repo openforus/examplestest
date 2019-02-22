@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<title>Hello, world!</title>
+	<title>Hello, AR Model!</title>
 	<!-- include three.js library -->
 	<script src='js/three.min96.js'></script>
 	<script src='js/OBJLoader.js'></script>
@@ -40,7 +40,7 @@ var mesh1;
 var manager;
 var controls;
 var poivector = new THREE.Vector3(0,0,0);
-
+var gltfobject ;
 initialize();
 animate();
 
@@ -52,9 +52,7 @@ function initialize()
 	scene.add( ambientLight );
 	let directionalLight = new THREE.DirectionalLight( 0x777777,1);
 	directionalLight.position.set(50, 100, 100).normalize();
-	scene.add( directionalLight );
-	
-	
+	scene.add( directionalLight );		
 	camera = new THREE.Camera();
 	scene.add(camera);
 
@@ -62,11 +60,13 @@ function initialize()
 
 	manager = new THREE.LoadingManager();
 	manager.onProgress = function ( item, loaded, total ) {
-		console.log( item, loaded, total );
+		 console.log( item, loaded, total );
 		// totalload=total;
 		// var percentComplete =  loaded / total * 100;
 	};
-	renderer = new THREE.WebGLRenderer({
+	renderer = new THREE.WebGLRenderer({ 
+		precision:"highp", 
+		logarithmicDepthBuffer:true,
 		antialias : true,
 		alpha: true
 	});
@@ -143,20 +143,22 @@ function initialize()
 // 	mesh1.rotation.x = -Math.PI/2;
 // 	markerRoot1.add( mesh1 );
 	
-	function onProgress(xhr) {
+	function onProgress(xhr) { 
 		console.log( xhr.total ); 
 		if ( xhr.lengthComputable ) {
 		var percentComplete =  xhr.loaded / xhr.total * 100;
 		console.log( Math.round(percentComplete, 2)    + '% loaded' );  
 		}
+	
+	
 	}
 	function onError(xhr) { 
 		// if(xhr.currentTarget.status==404)
 		// {}
-		console.log(xhr.currentTarget.status  );
+		console.log(xhr );
 		console.log( 'An error happened' );
 
-	}
+}
 	
 
 function LoadData(path)
@@ -171,7 +173,7 @@ function LoadData(path)
 
 			 
 			var spot1 = null;
-			var gltfobject = data.scene;
+			gltfobject = data.scene;
  
 
 			var Xmax=-9999999999,Ymax=-9999999999,Zmax=-9999999999;
@@ -238,9 +240,11 @@ function LoadData(path)
 			gltfobject.position.copy(poivector);
 
 			gltfobject.name="mymodel"
-			//console.log( 'scale1:'+gltfobject.scale.x );
+
+			console.log( 'scale1:',gltfobject.scale.x );
 			gltfobject.scale.multiplyScalar(0.01);//约束比例
-			//console.log( 'scale2:'+gltfobject.scale.x );
+			console.log( 'scale2:',gltfobject.scale.x );
+
 			markerRoot1.add(gltfobject);
 			scene.add( markerRoot1 );
 
@@ -256,7 +260,7 @@ function LoadData(path)
 		 
 			
 
-			//onResize();
+			onResize();
 
 		}, onProgress, onError );
 
@@ -289,6 +293,11 @@ function LoadData(path)
 function update()
 {
 	//controls.update();
+	if ( markerRoot1.visible )
+	{
+		  gltfobject.rotation.y += 0.01;
+	}	
+
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
@@ -312,10 +321,10 @@ function animate()
 
 </script>
 <script >
-document.body.addEventListener('touchmove', function (e) {
-  e.preventDefault(); //阻止默认的处理方式(阻止下拉滑动的效果)
-}, {passive: false});
-
-</script>
+	document.body.addEventListener('touchmove', function (e) {
+	  e.preventDefault(); //阻止默认的处理方式(阻止下拉滑动的效果)
+	}, {passive: false});
+	
+	</script>
 </body>
 </html>
