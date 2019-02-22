@@ -227,15 +227,15 @@ function LoadData(path)
 			var tempValue=   dx>dz?dx*0.8:dz*0.8;
 			//console.log("@@controls.maxDistance", controls.maxDistance);
 			//console.log("@@tempValue", tempValue);
-			//var scale= 150/tempValue;
+			var scale= 150/tempValue;
 			//controls.minDistance=(dy*0.8>tempValue?dy*0.8:tempValue)*scale;
 			//controls.maxDistance=controls.minDistance*3 ;
 
 			gltfobject.position.copy(poivector);
 
 			gltfobject.name="mymodel"
-
-			//gltfobject.scale.multiplyScalar(150/tempValue);//约束比例
+			console.log( 'scale:'+scale );
+			gltfobject.scale.multiplyScalar(scale);//约束比例
 
 			markerRoot1.add(gltfobject);
 			scene.add( markerRoot1 );
