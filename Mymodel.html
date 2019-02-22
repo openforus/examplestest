@@ -58,11 +58,7 @@ function initialize()
 	camera = new THREE.Camera();
 	scene.add(camera);
 
-	controls = new THREE.OrbitControls( camera );
-	controls.target.set( 0, 0.5, 0 );
-	controls.minDistance = 1;
-	controls.maxDistance = 50;
-	controls.update();
+	
 	
 	manager = new THREE.LoadingManager();
 	manager.onProgress = function ( item, loaded, total ) {
@@ -258,7 +254,10 @@ function LoadData(path)
 			markerRoot1.add(gltfobject);
 			scene.add( markerRoot1 );
 
-
+        controls = new THREE.OrbitControls( gltfobject );
+	controls.target.set( 0, 0.5, 0 );
+	 
+	controls.update();
 			//controls.target.copy(poivector);
 			//controls.reset();
 			//camera.position.z = 1000;
