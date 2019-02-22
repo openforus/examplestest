@@ -4,8 +4,8 @@
 	<title>Hello, AR Model!</title>
 	<!-- include three.js library -->
 	<script src='js/three.min96.js'></script>
-	<script src='js/OBJLoader.js'></script>
-	<script src='js/MTLLoader.js'></script>
+<!-- 	<script src='js/OBJLoader.js'></script>
+	<script src='js/MTLLoader.js'></script> -->
 	<!-- include jsartookit -->
 	<script src="jsartoolkit5/artoolkit.min.js"></script>
 	<script src="jsartoolkit5/artoolkit.api.js"></script>
@@ -70,9 +70,9 @@ function initialize()
 		antialias : true,
 		alpha: true
 	});
-	//renderer.gammaInput = true;
-	//renderer.gammaOutput = true;
-	//renderer.autoClear = false;
+	renderer.gammaInput = true;
+	renderer.gammaOutput = true;
+	renderer.autoClear = false;
 	
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
 	renderer.setSize( 640, 480 );
