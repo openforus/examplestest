@@ -56,8 +56,12 @@ function initialize()
 	camera = new THREE.Camera();
 	scene.add(camera);
 
-	//controls = new THREE.TrackballControls( camera );
-
+	controls = new THREE.OrbitControls( camera );
+	controls.target.set( 0, 0, 0 );
+	controls.minDistance = 1;
+	controls.maxDistance = 50;
+	controls.update();
+	
 	manager = new THREE.LoadingManager();
 	manager.onProgress = function ( item, loaded, total ) {
 		 console.log( item, loaded, total );
