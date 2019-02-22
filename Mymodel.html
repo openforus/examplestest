@@ -139,7 +139,8 @@ function initialize()
 	mesh1.rotation.x = -Math.PI/2;
 	markerRoot1.add( mesh1 );
 	
-	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
+	function onProgress(xhr) {var percentComplete =  xhr.loaded / xhr.total * 100;
+		console.log( Math.round(percentComplete, 2)    + '% loaded' );  }
 	function onError(xhr) { 
 		// if(xhr.currentTarget.status==404)
 		// {}
