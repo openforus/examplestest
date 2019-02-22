@@ -140,6 +140,7 @@ function initialize()
 	markerRoot1.add( mesh1 );
 	
 	function onProgress(xhr) {
+		console.log( xhr.total ); 
 		if ( xhr.lengthComputable ) {
 		var percentComplete =  xhr.loaded / xhr.total * 100;
 		console.log( Math.round(percentComplete, 2)    + '% loaded' );  
