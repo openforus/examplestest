@@ -269,7 +269,7 @@ function LoadData(path)
 			//var folder = gui.addFolder('场景');
 			datagui.距离目标=distance;
 			datagui.缩放比例=gltfobject.scale.x ;
-			alert(distance);
+			alert(distance+"—— "+ camera.position.x+" —— "+camera.position.y +" —— "+camera.position.z );
 			gui.add( datagui, "距离目标" ,0.1,100 ).onChange( function (   ) {
 
  				} );
