@@ -20,6 +20,7 @@
 	<script src="js/GLTFLoadernew.js"></script>
 <!-- 	<script src="js/TrackballControls.js"></script> -->
 	<script src="js/OrbitControls.js"></script>
+	<script src="js/ObjectControls.js"></script>
 	
 </head>
 
@@ -40,7 +41,7 @@ var markerRoot1;
 
 var mesh1;
 var manager;
-var controls;
+var objcontrols;
 var poivector = new THREE.Vector3(0,0,0);
 var gltfobject ;
 initialize();
@@ -59,7 +60,7 @@ function initialize()
 	scene.add(camera);
 
 	
-	
+
 	manager = new THREE.LoadingManager();
 	manager.onProgress = function ( item, loaded, total ) {
 		 console.log( item, loaded, total );
@@ -82,7 +83,7 @@ function initialize()
 	renderer.domElement.style.top = '0px'
 	renderer.domElement.style.left = '0px'
 	document.body.appendChild( renderer.domElement );
-
+ 
 	clock = new THREE.Clock();
 	deltaTime = 0;
 	totalTime = 0;
@@ -253,9 +254,9 @@ function LoadData(path)
 
 			markerRoot1.add(gltfobject);
 			scene.add( markerRoot1 );
-
-        controls = new THREE.OrbitControls( gltfobject );
-	controls.target.set( 0, 0, 0 );
+			objcontrols =new THREE.ObjectControls(camera, renderer.domElement, gltfobject);
+        // controls = new THREE.OrbitControls( gltfobject );
+	    // controls.target.set( 0, 0, 0 );
 	 
 	controls.update();
 			//controls.target.copy(poivector);
