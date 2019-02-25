@@ -251,7 +251,9 @@ function LoadData(path)
 			console.log( 'scale1:',gltfobject.scale.x );
 			gltfobject.scale.multiplyScalar(0.01);//约束比例
 			console.log( 'scale2:',gltfobject.scale.x );
-
+			var distance =camera.position.distanceTo(gltfobject.position);
+			console.log( 'distance:', distance);
+				
 			markerRoot1.add(gltfobject);
 			scene.add( markerRoot1 );
 			objcontrols =new THREE.ObjectControls(camera, renderer.domElement, gltfobject);
