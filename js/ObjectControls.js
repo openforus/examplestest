@@ -223,7 +223,14 @@ THREE.ObjectControls = function (camera, domElement, objectToMove) {
 			};
 		}
 	}
+	
+	function zoomIn() {
+		camera.position.z -= zoomSpeed;
+	}
 
+	function zoomOut() {
+		camera.position.z += zoomSpeed;
+	}
 
 
 };
