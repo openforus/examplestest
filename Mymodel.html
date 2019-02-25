@@ -259,7 +259,7 @@ function LoadData(path)
 
 			console.log( 'scale1:',gltfobject.scale.x );
 			gltfobject.scale.multiplyScalar(0.01);//约束比例
-			distance =camera.position.distanceTo(gltfobject.position);
+			distance =camera.position.distanceTo(markerRoot1.position);
 			console.log( 'distance:', distance);
 		 
 			console.log( 'scale2:',gltfobject.scale.x );
@@ -331,7 +331,7 @@ function update()
 	if ( markerRoot1.visible  &&  gltfobject!=undefined)
 	{
 		gltfobject.rotation.y += 0.01;
-		distance =camera.position.distanceTo(gltfobject.position);
+		distance =camera.position.distanceTo(markerRoot1.position);
 		alert(distance+"—— "+ camera.position.x+" —— "+camera.position.y +" —— "+camera.position.z );
 		datagui.距离目标=distance;
 		datagui.缩放比例=gltfobject.scale.x ;
