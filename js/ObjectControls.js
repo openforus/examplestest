@@ -225,11 +225,15 @@ THREE.ObjectControls = function (camera, domElement, objectToMove) {
 	}
 	
 	function zoomIn() {
-		camera.position.z -= zoomSpeed;
+		if  (objectToMove.scale.x < maxZoom) {
+            		objectToMove.scale.set(1.1*objectToMove.scale.x,1.1*objectToMove.scale.y,1.1*objectToMove.scale.z);
+		} 
 	}
 
 	function zoomOut() {
-		camera.position.z += zoomSpeed;
+		if ( objectToMove.scale.x > minZoom) {
+			objectToMove.scale.set(0.9*objectToMove.scale.x,0.9*objectToMove.scale.y,0.9*objectToMove.scale.z);
+		} 	
 	}
 
 
