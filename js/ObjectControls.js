@@ -20,8 +20,8 @@ THREE.ObjectControls = function (camera, domElement, objectToMove) {
 	this.objectToMove = objectToMove;
 	this.domElement = (domElement !== undefined) ? domElement : document;
 
-	var maxZoom = 200,
-		minZoom = 0.5,
+	var maxZoom = 20,
+		minZoom = 0.005,
 		minAngle = -0.5
 		maxAngle = 0.5,
 		zoomSpeed = 1,
