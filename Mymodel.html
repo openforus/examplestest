@@ -329,13 +329,12 @@ function update()
 	//controls.update();
 	if ( markerRoot1.visible  &&  gltfobject!=undefined)
 	{
-		  gltfobject.rotation.y += 0.01;
+		gltfobject.rotation.y += 0.01;
+		distance =camera.position.distanceTo(gltfobject.position);
+		datagui.距离目标=distance;
+		datagui.缩放比例=gltfobject.scale.x ;
 	}	
-
-	distance =camera.position.distanceTo(gltfobject.position);
-	datagui.距离目标=distance;
-	datagui.缩放比例=gltfobject.scale.x ;
-	
+ 
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
