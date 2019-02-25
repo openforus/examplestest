@@ -182,11 +182,11 @@ THREE.ObjectControls = function (camera, domElement, objectToMove) {
 
 			if (prevZoomDiff && prevZoomDiff.X > 0 && prevZoomDiff.Y > 0) {
 				if ((curDiffX > prevZoomDiff.X) &&
-					(curDiffY > prevZoomDiff.Y) && (objectToMove.scale.x  < maxZoom )) {
-					// console.log("Pinch moving IN -> Zoom in", e);
+					(curDiffY > prevZoomDiff.Y) ) {
+					 console.log("Pinch moving IN -> Zoom in", e);
 					zoomIn();
-				} else if (curDiffX < prevZoomDiff.X && (objectToMove.scale.x  > minZoom) && curDiffY < prevZoomDiff.Y) {
-					// console.log("Pinch moving OUT -> Zoom out", e);
+				} else if (curDiffX < prevZoomDiff.X && curDiffY < prevZoomDiff.Y) {
+					 console.log("Pinch moving OUT -> Zoom out", e);
 					zoomOut();
 				}
 			}
