@@ -70,8 +70,8 @@ function initialize()
 	camera = new THREE.Camera();
 	scene.add(camera);
 
-	
-
+	var CameraHelper= new THREE.CameraHelper(camera);
+	scene.add(CameraHelper);
 	manager = new THREE.LoadingManager();
 	manager.onProgress = function ( item, loaded, total ) {
 		 console.log( item, loaded, total );
@@ -339,7 +339,7 @@ function update()
 	{
 		gltfobject.rotation.y += 0.01;
 		distance =camera.position.distanceTo(gltfobject.position);
-		markerControlsPoi=camera.rotation.x+" —— "+camera.rotation.y+" —— "+markerRoot1.rotation.y;
+		markerControlsPoi=camera.rotation.x+" —— "+markerRoot1.position.x+" —— "+markerRoot1.rotation.y;
 		$("#disID").html("");
 		$("#disID").html("");
 		$("#scaleID").html(gltfobject.scale.x);
