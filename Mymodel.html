@@ -69,7 +69,7 @@ function initialize()
 	scene.add( directionalLight );		
 	camera = new THREE.Camera();
 	scene.add(camera);
-
+camera.position.set(0, 1, 1);
 	var CameraHelper= new THREE.CameraHelper(camera);
 	scene.add(CameraHelper);
 	manager = new THREE.LoadingManager();
