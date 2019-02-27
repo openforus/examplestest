@@ -22,11 +22,12 @@
 	<script src="js/OrbitControls.js"></script>
 	<script src="js/ObjectControls.js"></script>
 	<script src="js/dat.gui.min.js"></script>
-	
+	<script src="js/jquery-2.0.0.min.js"></script>
 </head>
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
-
+	<div  id="disID" >文物名称</div>
+	<div  id="scaleID" >文物名称</div>
 <!-- 
   Example created by Lee Stemkoski: https://github.com/stemkoski
   Based on the AR.js library and examples created by Jerome Etienne: https://github.com/jeromeetienne/AR.js/
@@ -259,23 +260,27 @@ function LoadData(path)
 
 			console.log( 'scale1:',gltfobject.scale.x );
 			gltfobject.scale.multiplyScalar(0.01);//约束比例
-			distance =camera.position.distanceTo(markerRoot1.position);
+			distance =camera.position.distanceTo(gltfobject.position);
 			console.log( 'distance:', distance);
 		 
 			console.log( 'scale2:',gltfobject.scale.x );
 
 			markerRoot1.add(gltfobject);
 			scene.add( markerRoot1 );
+			$("#disID").html("");
+			$("#disID").html("");
+			$("#scaleID").html(gltfobject.scale.x);
+			$("#disID").html(distance);
 			//var folder = gui.addFolder('场景');
-			datagui.距离目标=distance;
-			datagui.缩放比例=gltfobject.scale.x ;
+// 			datagui.距离目标=distance;
+// 			datagui.缩放比例=gltfobject.scale.x ;
 			
-			gui.add( datagui, "距离目标" ,0.1,100 ).onChange( function (   ) {
+// 			gui.add( datagui, "距离目标" ,0.1,100 ).onChange( function (   ) {
 
- 				} );
-			gui.add( datagui, "缩放比例", 0.001, 10 ).onChange( function(){ 
+//  				} );
+// 			gui.add( datagui, "缩放比例", 0.001, 10 ).onChange( function(){ 
 
-			});
+// 			});
 
 
 
@@ -331,10 +336,14 @@ function update()
 	if ( markerRoot1.visible  &&  gltfobject!=undefined)
 	{
 		gltfobject.rotation.y += 0.01;
-		distance =camera.position.distanceTo(markerRoot1.position);
+		distance =camera.position.distanceTo(gltfobject.position);
+		$("#disID").html("");
+		$("#disID").html("");
+		$("#scaleID").html(gltfobject.scale.x);
+		$("#disID").html(distance);
 		//alert(distance+"—— "+ camera.position.x+" —— "+camera.position.y +" —— "+camera.position.z );
-		datagui.距离目标=gltfobject.rotation.y;
-		datagui.缩放比例=gltfobject.scale.x ;
+// 		datagui.距离目标=gltfobject.rotation.y;
+// 		datagui.缩放比例=gltfobject.scale.x ;
 	}	
  
 	// update artoolkit on every frame
