@@ -69,9 +69,9 @@ function initialize()
 	scene.add( directionalLight );		
 	camera = new THREE.Camera();
 	scene.add(camera);
-camera.position.set(0, 1, 1);
-	var CameraHelper= new THREE.CameraHelper(camera);
-	scene.add(CameraHelper);
+   //camera.position.set(0, 1, 1);
+	//var CameraHelper= new THREE.CameraHelper(camera);
+	//scene.add(CameraHelper);
 	manager = new THREE.LoadingManager();
 	manager.onProgress = function ( item, loaded, total ) {
 		 console.log( item, loaded, total );
@@ -133,7 +133,7 @@ camera.position.set(0, 1, 1);
 	// create atToolkitContext
 	arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: 'data/camera_para.dat',
-		detectionMode: 'mono'
+		detectionMode: 'color_and_matrix'
 	});
 	
 	// copy projection matrix to camera when initialization complete
