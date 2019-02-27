@@ -48,11 +48,12 @@ var poivector = new THREE.Vector3(0,0,0);
 var gltfobject ;
 var gui ;
 var distance=0;
+var markerControlsPoi=0;	
 var datagui = {
-					"距离目标" : distance,
-					"缩放比例" : 0.0001
-					 
-				}
+ 		"距离目标" : distance,
+		"缩放比例" : 0.0001
+	}
+
 initialize();
 animate();
 
@@ -150,7 +151,7 @@ function initialize()
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
 		type: 'pattern', patternUrl: "data/E1225.patt",
 	})
-
+	
 // 	let geometry1 = new THREE.PlaneBufferGeometry(1,1, 4,4);
 // 	let Cubegeometry	= new THREE.CubeGeometry(1,1,1);
 // 	let loader = new THREE.TextureLoader();
@@ -261,6 +262,7 @@ function LoadData(path)
 			console.log( 'scale1:',gltfobject.scale.x );
 			gltfobject.scale.multiplyScalar(0.01);//约束比例
 			distance =camera.position.distanceTo(gltfobject.position);
+				markerControlsPoi=camera.rotation.x;
 			console.log( 'distance:', distance);
 		 
 			console.log( 'scale2:',gltfobject.scale.x );
@@ -337,10 +339,13 @@ function update()
 	{
 		gltfobject.rotation.y += 0.01;
 		distance =camera.position.distanceTo(gltfobject.position);
+		markerControlsPoi=camera.rotation.x+" —— "+camera.rotation.y+" —— "+markerRoot1.rotation.y;
 		$("#disID").html("");
 		$("#disID").html("");
 		$("#scaleID").html(gltfobject.scale.x);
-		$("#disID").html(distance);
+		//$("#disID").html(camera.position.x+"_"+camera.position.y+"_"+camera.position.z);
+		$("#disID").html(markerControlsPoi);
+		
 		//alert(distance+"—— "+ camera.position.x+" —— "+camera.position.y +" —— "+camera.position.z );
 // 		datagui.距离目标=gltfobject.rotation.y;
 // 		datagui.缩放比例=gltfobject.scale.x ;
