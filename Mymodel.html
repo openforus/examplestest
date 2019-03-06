@@ -339,7 +339,7 @@ function update()
 	{
 		gltfobject.rotation.y += 0.01;
 		distance =camera.position.distanceTo(gltfobject.position);
-		markerControlsPoi=camera.rotation.x+" —— "+markerRoot1.position.x+" —— "+markerRoot1.rotation.y;
+		markerControlsPoi=camera.rotation.x+" —— "+camera.position.x+" —— "+camera.position.y;
 		$("#disID").html("");
 		$("#disID").html("");
 		$("#scaleID").html(gltfobject.scale.x);
